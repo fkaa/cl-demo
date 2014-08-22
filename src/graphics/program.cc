@@ -20,7 +20,7 @@ void Program::link() {
   if(glGetError() != GL_NO_ERROR || link_status == GL_FALSE) {
     glGetProgramiv(id, GL_INFO_LOG_LENGTH, &log_len);
     if (log_len > 0) {
-      std::vector<char> link_error(std::max(log_len, int(1)));
+      std::vector<char> link_error(log_len);
       glGetProgramInfoLog(id, log_len, NULL, &link_error[0]);
       Log::e("%s", &link_error[0]);
     }
@@ -50,7 +50,7 @@ GLuint Program::load_shader(const char* path, GLenum type) {
     glGetShaderInfoLog(shader, log_len, NULL, &shader_error[0]);
     Log::e("%s", &shader_error[0]);
   }
-  
+
   return shader;
 }
 

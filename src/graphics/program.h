@@ -4,7 +4,6 @@
 #include <GLFW/glfw3.h>
 
 #include <vector>
-#include <string>
 
 #include "log.h"
 
@@ -18,7 +17,6 @@ class Program {
   
   static GLuint load_shader(const char* path, GLenum type);
   static void delete_shader(GLuint shader);
- private:
   GLuint id;
 };
 

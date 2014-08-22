@@ -1,13 +1,19 @@
 #ifndef APP_H
 #define APP_H
 
-#include "graphics/program.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/matrix_inverse.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
+#include "graphics/program.h"
 #include "state/state.h"
+#include "particle.h"
+#include "input.h"
 
 class App : public State {
  public:
-  App();
+  App(int width, int height, int num_particles);
   virtual ~App();
 
   virtual void load();
@@ -15,9 +21,19 @@ class App : public State {
   virtual void update(double delta);
   virtual void draw(double lerp);
 
+  void set_particles(int num);
+
   bool use_gpu;
  private:
+  int width;
+  int height;
+  int num_particles;
+  GLuint particle_buffer;
   Program program;
+  Program compute;
+
+  glm::vec2 att;
+  glm::mat4 proj;
 };
 
 #endif // APP_H

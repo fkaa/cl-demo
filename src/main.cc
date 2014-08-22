@@ -62,7 +62,7 @@ int main(int argc, const char *argv[]) {
   Keyboard::init(wnd);
   Mouse::init(wnd);
 
-  Governor::put("main_app", new App());
+  Governor::put("main_app", new App(APP_WIDTH, APP_HEIGHT, 1000));
   Governor::set("main_app");
 
   const double dt = 1. / 60.;
