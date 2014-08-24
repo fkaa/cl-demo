@@ -48,7 +48,7 @@ GLuint Program::load_shader(const char* path, GLenum type) {
   if (log_len > 0) {
     std::vector<char> shader_error(log_len);
     glGetShaderInfoLog(shader, log_len, NULL, &shader_error[0]);
-    Log::e("%s", &shader_error[0]);
+    Log::e("%s: %s", path, &shader_error[0]);
   }
 
   return shader;

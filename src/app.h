@@ -6,8 +6,13 @@
 #include <glm/gtc/matrix_inverse.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "compute/kernel.h"
+#include "compute/mcl.h"
+
 #include "graphics/program.h"
+
 #include "state/state.h"
+
 #include "particle.h"
 #include "input.h"
 
@@ -29,8 +34,9 @@ class App : public State {
   int height;
   int num_particles;
   GLuint particle_buffer;
+
   Program program;
-  Program compute;
+  Kernel* kernel;
 
   glm::vec2 att;
   glm::mat4 proj;

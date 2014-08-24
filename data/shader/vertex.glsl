@@ -1,10 +1,9 @@
-#version 430
+#version 410
 
-layout(location = 0) in vec4 prev;
-layout(location = 1) in vec4 curr;
+layout(location = 0) in vec4 vertices;
 
-layout(location = 2) uniform mat4 mvp;
+uniform mat4 proj;
 
 void main() {
-  gl_Position = mvp * curr;
+  gl_Position = proj * vertices;
 }

@@ -1,7 +1,9 @@
-#version 430
+#version 410
 
 out vec4 color;
 
 void main() {
-  color = vec4(1.0, 1.0, 1.0, 0.1);
+  vec2 pos = gl_FragCoord.xy;
+  
+  color = vec4(pos.x, pos.y, pos.x, 0.1);
 }

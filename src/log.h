@@ -28,6 +28,11 @@ static void d(const char* text, Args&&... args) {
 }
 
 template <typename... Args>
+static void w(const char* text, Args&&... args) {
+  p("\033[34mWARNING", text, args...);
+}
+
+template <typename... Args>
 static void e(const char* text, Args&&... args) {
   p("\033[31mERROR  ", text, args...);
 }

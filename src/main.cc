@@ -16,6 +16,8 @@
 #include "graphics/sprite.h"
 #include "graphics/fbo.h"
 
+#include "compute/mcl.h"
+
 #include "app.h"
 #include "input.h"
 #include "timer.h"
@@ -43,6 +45,11 @@ int main(int argc, const char *argv[]) {
   }
 
   Log::d("Creating window [width=%i,height=%i,title='untitled']", wnd_width, wnd_height);
+  
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
   GLFWwindow* wnd = glfwCreateWindow(wnd_width, wnd_height, "untitled", NULL, NULL);
   if (!wnd) {
     Log::e("Failed to create window, closing.");
@@ -51,13 +58,20 @@ int main(int argc, const char *argv[]) {
   glfwSetFramebufferSizeCallback(wnd, resize);
   glfwMakeContextCurrent(wnd);
 
+
   Log::d("Initializing GLEW");
   glewExperimental = GL_TRUE;
   if (GLEW_OK != glewInit()) {
     Log::e("Failed to initialize GLEW, closing.");
     return 1;
   }
-  glClearColor(0.f, 0.f, 0.f, 1.f);
+  Log::v("OpenGL: %s", glGetString(GL_VERSION));
+
+  glClearColor(0.05f, 0.05f, 0.05f, 1.f);
+
+  if (!MCL::init(true)) {
+    Log::e("Failed to initialize OpenCL, closing.");
+  }
 
   Keyboard::init(wnd);
   Mouse::init(wnd);

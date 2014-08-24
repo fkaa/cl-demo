@@ -7,6 +7,14 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-format-security -std=c++11")
 set(PROJECT_NAME "gyarte")
 
+IF (APPLE)
+   #SET(GUI_TYPE MACOSX_BUNDLE)
+   #INCLUDE_DIRECTORIES ( /Developer/Headers/FlatCarbon )
+   FIND_LIBRARY(OPENCL_LIBRARY OpenCL)
+   MARK_AS_ADVANCED(OPENCL_LIBRARY)
+   SET(EXTRA_LIBS ${OPENCL_LIBRARY})
+ENDIF (APPLE)
+
 # OpenGL
 find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIR})
@@ -33,6 +41,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 aux_source_directory("${CMAKE_CURRENT_SOURCE_DIR}/src" SRC_LIST)
 aux_source_directory("${CMAKE_CURRENT_SOURCE_DIR}/src/state" SRC_LIST)
 aux_source_directory("${CMAKE_CURRENT_SOURCE_DIR}/src/graphics" SRC_LIST)
+aux_source_directory("${CMAKE_CURRENT_SOURCE_DIR}/src/compute" SRC_LIST)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
-target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} GLEW glfw3 jsoncpp)
+target_link_libraries(${PROJECT_NAME} ${EXTRA_LIBS} ${OPENGL_LIBRARIES} GLEW glfw3 jsoncpp)

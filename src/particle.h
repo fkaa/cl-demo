@@ -4,8 +4,8 @@
 #include <glm/glm.hpp>
 
 struct Particle {
-  glm::vec4 curr_pos;
-  glm::vec4 prev_pos;
+  glm::vec2 c_pos;
+  glm::vec2 p_pos;
 };
 
 #endif
