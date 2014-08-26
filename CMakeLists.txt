@@ -37,4 +37,4 @@ aux_source_directory("${CMAKE_CURRENT_SOURCE_DIR}/src/graphics" SRC_LIST)
 aux_source_directory("${CMAKE_CURRENT_SOURCE_DIR}/src/compute" SRC_LIST)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
-target_link_libraries(${PROJECT_NAME} ${EXTRA_LIBS} ${OPENGL_LIBRARIES} GLEW glfw3 jsoncpp)
+target_link_libraries(${PROJECT_NAME} ${EXTRA_LIBS} ${OPENGL_LIBRARIES} GLEW glfw3)
