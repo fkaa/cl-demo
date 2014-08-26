@@ -12,3 +12,4 @@ __kernel void update(__global float2* positions, __global float2* velocities, co
   positions[idx] = position;
   velocities[idx] = velocity;
 }
+ 

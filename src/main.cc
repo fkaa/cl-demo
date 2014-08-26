@@ -12,8 +12,6 @@
 #include "state/governor.h"
 #include "state/state.h"
 
-#include "graphics/texture.h"
-#include "graphics/sprite.h"
 #include "graphics/fbo.h"
 
 #include "compute/mcl.h"
