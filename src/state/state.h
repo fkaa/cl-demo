@@ -8,6 +8,7 @@ class State {
   
   // state lifecycle
   virtual void load() = 0;
+  virtual void reshape(int width, int height) {}
   virtual void unload() {}
   virtual void update(double delta) {}
   virtual void draw(double lerp) {}

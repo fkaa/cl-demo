@@ -65,6 +65,16 @@ App::~App() {
   glDeleteVertexArrays(1, &particle_vao);
 }
 
+void App::reshape(int width, int height) {
+  proj = glm::ortho(0.f, static_cast<float>(width), static_cast<float>(height), 0.f, -1.f, 1.f);
+
+  glUseProgram(program.id);
+  glUniformMatrix4fv(glGetUniformLocation(program.id, "proj"), 1, GL_FALSE, glm::value_ptr(proj));
+
+  this->width = width;
+  this->height = height;
+}
+
 void App::load() {
 
 }

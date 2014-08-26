@@ -7,13 +7,10 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-format-security -std=c++11")
 set(PROJECT_NAME "gyarte")
 
-IF (APPLE)
-   #SET(GUI_TYPE MACOSX_BUNDLE)
-   #INCLUDE_DIRECTORIES ( /Developer/Headers/FlatCarbon )
-   FIND_LIBRARY(OPENCL_LIBRARY OpenCL)
-   MARK_AS_ADVANCED(OPENCL_LIBRARY)
-   SET(EXTRA_LIBS ${OPENCL_LIBRARY})
-ENDIF (APPLE)
+# OpenCL
+FIND_LIBRARY(OPENCL_LIBRARY OpenCL)
+MARK_AS_ADVANCED(OPENCL_LIBRARY)
+SET(EXTRA_LIBS ${OPENCL_LIBRARY})
 
 # OpenGL
 find_package(OpenGL REQUIRED)
@@ -30,10 +27,6 @@ include_directories(${GLEW_INCLUDE_DIR})
 # GLM
 find_package(glm REQUIRED)
 include_directories(${GLM_INCLUDE_DIR})
-
-# jsoncpp
-find_package(jsoncpp REQUIRED)
-include_directories(${Jsoncpp_INCLUDE_DIR})
 
 # local headers
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)

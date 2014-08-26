@@ -33,6 +33,7 @@ int wnd_height = APP_HEIGHT;
 void resize(GLFWwindow* window, int w, int h) {
   wnd_width = w;
   wnd_height = h;
+  Governor::reshape(w, h);
 }
 
 } // namespace
@@ -69,6 +70,7 @@ int main(int argc, const char *argv[]) {
 
   glClearColor(0.1f, 0.1f, 0.1f, 1.f);
 
+
   if (!MCL::init(true)) {
     Log::e("Failed to initialize OpenCL, closing.");
   }
@@ -76,7 +78,7 @@ int main(int argc, const char *argv[]) {
   Keyboard::init(wnd);
   Mouse::init(wnd);
 
-  Governor::put("main_app", new App(APP_WIDTH, APP_HEIGHT, 2000000));
+  Governor::put("main_app", new App(APP_WIDTH, APP_HEIGHT, 1000000));
   Governor::set("main_app");
 
   const double dt = 1. / 60.;

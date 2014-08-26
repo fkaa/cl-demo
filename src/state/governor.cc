@@ -29,6 +29,12 @@ void pop() {
   states.pop_front();
 }
 
+void reshape(int width, int height) {
+  for (std::deque<State*>::iterator it = states.begin(); it != states.end(); ++it) {
+    (*it)->reshape(width, height);
+  }
+}
+
 void update(double delta) {
   for (std::deque<State*>::iterator it = states.begin(); it != states.end(); ++it) {
     if (!(*it)->paused) (*it)->update(delta);

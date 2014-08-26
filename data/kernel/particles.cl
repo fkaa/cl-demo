@@ -6,7 +6,7 @@ __kernel void update(__global float2* positions, __global float2* velocities, co
   float2 position = positions[idx];
   float2 velocity = velocities[idx];
 
-  velocity += normalize(att_pos - position) * 2 * DT;
+  velocity += normalize(att_pos - position) * DT;
   position += velocity;
 
   positions[idx] = position;

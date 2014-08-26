@@ -12,6 +12,7 @@ bool set(const char* id);
 bool push(const char* id);
 void pop();
 
+void reshape(int width, int height);
 void update(double delta);
 void draw(double lerp);
 

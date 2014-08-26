@@ -28,6 +28,7 @@ class App : public State {
 
   virtual void load();
   virtual void unload();
+  virtual void reshape(int width, int height);
   virtual void update(double delta);
   virtual void draw(double lerp);
 
