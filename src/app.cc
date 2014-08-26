@@ -84,6 +84,10 @@ void App::unload() {
 }
 
 void App::update(double delta) {
+  if (Keyboard::is_key_pressed(GLFW_KEY_R)) {
+    set_particles(num_particles);
+  }
+
   compute();
 }
 
@@ -108,9 +112,12 @@ void App::compute() {
     static_cast<float>(Mouse::get_y())
   }};
 
+  cl_float dfactor = Keyboard::is_key_down(GLFW_KEY_LEFT_ALT) ? 1.f : 0.f;
+
   kernel->set_arg(0, sizeof(cl_mem), &positions_buffer);
   kernel->set_arg(1, sizeof(cl_mem), &velocities_buffer);
   kernel->set_arg(2, sizeof(cl_float2), &center);
+  kernel->set_arg(3, sizeof(cl_float), &dfactor);
 
   if (clEnqueueAcquireGLObjects(MCL::device_queue(), 1, &positions_buffer, 0, nullptr, nullptr)) {
     Log::e("Failed to attach positions buffer");
