@@ -19,6 +19,7 @@
 #include "state/state.h"
 
 #include "particle.h"
+#include "timer.h"
 #include "input.h"
 
 class App : public State {

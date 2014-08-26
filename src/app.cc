@@ -141,14 +141,15 @@ void App::set_particles(int num) {
 
   std::vector<GLfloat> data(num_vertices);
   std::vector<GLfloat> vel(num_vertices);
+
   for (int i = 0; i < num_vertices; i += 2) {
-    data[i    ] = rand() % width;
-    data[i + 1] = rand() % height;
+    data[i    ] = (static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * height + (width-height)/2;
+    data[i + 1] = (static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * height;
 
     vel[i    ] = 0;
     vel[i + 1] = 0;
 
-    //Log::d("data[%i/%i] = %f, %f", i+2, i+3, data[i+2], data[i+3]);
+    //Log::d("data[%i/%i] = %f, %f", i, i+1, data[i], data[i+1]);
   }
   glBindBuffer(GL_ARRAY_BUFFER, particle_buffer);
   glBufferData(GL_ARRAY_BUFFER, num_vertices * sizeof(GLfloat), &data[0], GL_STATIC_DRAW);

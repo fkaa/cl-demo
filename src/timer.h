@@ -13,6 +13,7 @@ class Timer {
   void reset() { current_time = 0; }
 
   static void update_all(float delta);
+  static float time;
  private:
   void update(float delta) { if (active()) { current_time += delta; } }
   float current_time;

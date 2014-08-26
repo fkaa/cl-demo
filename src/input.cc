@@ -40,12 +40,12 @@ std::map<int, bool> Mouse::press_btns;
 std::map<int, bool> Mouse::release_btns;
 std::map<int, bool> Mouse::repeat_btns;
 
-int Mouse::m_x;
-int Mouse::m_y;
+double Mouse::m_x;
+double Mouse::m_y;
 
 void Mouse::cursor_cb(GLFWwindow* wnd, double x, double y) {
-  m_x = (int)x;
-  m_y = (int)y;
+  m_x = x;
+  m_y = y;
 }
 
 void Mouse::mouse_cb(GLFWwindow* wnd, int button, int action, int mods) {
@@ -61,6 +61,7 @@ void Mouse::mouse_cb(GLFWwindow* wnd, int button, int action, int mods) {
 void Mouse::init(GLFWwindow* wnd) {
   glfwSetCursorPosCallback(wnd, cursor_cb);
   glfwSetMouseButtonCallback(wnd, mouse_cb);
+  glfwGetCursorPos(wnd, &m_x, &m_y);
 }
 
 void Mouse::poll() {
@@ -80,10 +81,10 @@ bool Mouse::is_btn_released(int btn) {
   return release_btns.count(btn) > 0;
 }
 
-int Mouse::get_x() {
+double Mouse::get_x() {
   return m_x;
 }
 
-int Mouse::get_y() {
+double Mouse::get_y() {
   return m_y;
 }
