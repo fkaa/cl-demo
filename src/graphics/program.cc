@@ -17,7 +17,7 @@ void Program::link() {
 
   GLint link_status = GL_FALSE, log_len;
   glGetProgramiv(id, GL_LINK_STATUS, &link_status);
-  if(glGetError() != GL_NO_ERROR || link_status == GL_FALSE) {
+  if(link_status == GL_FALSE) {
     glGetProgramiv(id, GL_INFO_LOG_LENGTH, &log_len);
     if (log_len > 0) {
       std::vector<char> link_error(log_len);
@@ -28,15 +28,16 @@ void Program::link() {
 }
 
 GLuint Program::load_shader(const char* path, GLenum type) {
-  std::vector<char> data;
-  if (FILE* fp = fopen(path, "r")) {
-    char buf[1024];
-    while (size_t len = fread(buf, 1, sizeof(buf), fp)) {
-      data.insert(data.end(), buf, buf + len);
-    }
-    fclose(fp);
-  }
-  const char* src = &data[0];
+  std::ifstream t(path);
+  std::string str;
+
+  t.seekg(0, std::ios::end);   
+  str.reserve(t.tellg());
+  t.seekg(0, std::ios::beg);
+  str.assign((std::istreambuf_iterator<char>(t)),
+             std::istreambuf_iterator<char>());
+
+  const char* src = str.c_str();
 
   GLuint shader = glCreateShader(type);
   glShaderSource(shader, 1, &src, NULL);

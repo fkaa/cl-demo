@@ -50,7 +50,7 @@ int main(int argc, const char *argv[]) {
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-  GLFWwindow* wnd = glfwCreateWindow(wnd_width, wnd_height, "untitled", NULL, NULL);
+  GLFWwindow* wnd = glfwCreateWindow(wnd_width, wnd_height, "gyarte14-15", NULL, NULL);
   if (!wnd) {
     Log::e("Failed to create window, closing.");
     return 1;
@@ -67,7 +67,7 @@ int main(int argc, const char *argv[]) {
   }
   Log::v("OpenGL: %s", glGetString(GL_VERSION));
 
-  glClearColor(0.05f, 0.05f, 0.05f, 1.f);
+  glClearColor(0.1f, 0.1f, 0.1f, 1.f);
 
   if (!MCL::init(true)) {
     Log::e("Failed to initialize OpenCL, closing.");
@@ -76,7 +76,7 @@ int main(int argc, const char *argv[]) {
   Keyboard::init(wnd);
   Mouse::init(wnd);
 
-  Governor::put("main_app", new App(APP_WIDTH, APP_HEIGHT, 1000));
+  Governor::put("main_app", new App(APP_WIDTH, APP_HEIGHT, 2000000));
   Governor::set("main_app");
 
   const double dt = 1. / 60.;
@@ -86,10 +86,6 @@ int main(int argc, const char *argv[]) {
   double accumulator = 0.;
 
   //  Log::log("foo, %s\n", "bar");
-
-  glEnable(GL_TEXTURE_2D);
-  glEnable(GL_BLEND);
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   
   while (!glfwWindowShouldClose(wnd)) {
     const double new_time = glfwGetTime();

@@ -4,6 +4,9 @@
 #include <GLFW/glfw3.h>
 
 #include <vector>
+#include <string>
+#include <fstream>
+#include <streambuf>
 
 #include "log.h"
 

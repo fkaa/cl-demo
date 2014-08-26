@@ -1,10 +1,15 @@
 #ifndef APP_H
 #define APP_H
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/matrix_inverse.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+#include <vector>
 
 #include "compute/kernel.h"
 #include "compute/mcl.h"
@@ -26,6 +31,7 @@ class App : public State {
   virtual void update(double delta);
   virtual void draw(double lerp);
 
+  void compute();
   void set_particles(int num);
 
   bool use_gpu;
@@ -33,7 +39,9 @@ class App : public State {
   int width;
   int height;
   int num_particles;
-  GLuint particle_buffer;
+  GLuint particle_buffer, particle_vao;
+  cl_mem positions_buffer;
+  cl_mem velocities_buffer;
 
   Program program;
   Kernel* kernel;
