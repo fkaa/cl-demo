@@ -2,7 +2,7 @@
 
 Particles being updated on the GPU using OpenCL.
 
-![Particle simulation](http://i.imgur.com/e85lSHj.png)
-![Particle simulation](http://i.imgur.com/RUUlVmL.png)
+![Particle simulation](http://i.imgur.com/gGZ3orL.png)
+![Particle simulation](http://i.imgur.com/UIIbOdj.png)
 
 [Full album](http://imgur.com/a/BlaAG)

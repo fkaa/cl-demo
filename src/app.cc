@@ -93,7 +93,7 @@ void App::update(double delta) {
 
 void App::draw(double lerp) {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  glClearColor(0.01f, 0.51f, 0.71f, 1.f);
+  glClearColor(0.05f, 0.05f, 0.05f, 1.f);
 
   glUseProgram(program.id);
   glBindVertexArray(particle_vao);
@@ -112,7 +112,7 @@ void App::compute() {
     static_cast<float>(Mouse::get_y())
   }};
 
-  cl_float dfactor = Keyboard::is_key_down(GLFW_KEY_LEFT_ALT) ? 1.f : 0.f;
+  cl_float dfactor = Keyboard::is_key_down(GLFW_KEY_LEFT_SUPER) ? 1.f : 0.f;
 
   kernel->set_arg(0, sizeof(cl_mem), &positions_buffer);
   kernel->set_arg(1, sizeof(cl_mem), &velocities_buffer);
