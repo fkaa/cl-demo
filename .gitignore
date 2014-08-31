@@ -1,6 +1,7 @@
 CMakeFiles/
 CMakeCache.*
 cmake_install.cmake
+*.sublime-workspace
 Makefile
 TODO.*
 bin/

@@ -43,7 +43,7 @@ int main(int argc, const char *argv[]) {
     return 1;
   }
 
-  Log::d("Creating window [width=%i,height=%i,title='untitled']", wnd_width, wnd_height);
+  Log::d("Creating window [width=%i,height=%i,title='gyarte14-15']", wnd_width, wnd_height);
   
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -71,12 +71,13 @@ int main(int argc, const char *argv[]) {
 
   if (!MCL::init(true)) {
     Log::e("Failed to initialize OpenCL, closing.");
+    return 1;
   }
 
   Keyboard::init(wnd);
   Mouse::init(wnd);
 
-  Governor::put("main_app", new App(APP_WIDTH, APP_HEIGHT, 1000000));
+  Governor::put("main_app", new App(APP_WIDTH, APP_HEIGHT, 2000000));
   Governor::set("main_app");
 
   const double dt = 1. / 60.;
@@ -112,6 +113,8 @@ int main(int argc, const char *argv[]) {
 
   Asset::clear();
   Governor::destroy();
+  MCL::destroy();
+   
   glfwDestroyWindow(wnd);
   return 0;
 }

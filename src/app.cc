@@ -93,7 +93,7 @@ void App::update(double delta) {
 
 void App::draw(double lerp) {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  glClearColor(0.1f, 0.1f, 0.1f, 1.f);
+  glClearColor(0.01f, 0.51f, 0.71f, 1.f);
 
   glUseProgram(program.id);
   glBindVertexArray(particle_vao);
@@ -150,7 +150,7 @@ void App::set_particles(int num) {
   std::vector<GLfloat> vel(num_vertices);
 
   for (int i = 0; i < num_vertices; i += 2) {
-    data[i    ] = (static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * height + (width-height)/2;
+    data[i    ] = (static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * width;// * height + (width-height)/2;
     data[i + 1] = (static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * height;
 
     vel[i    ] = 0;

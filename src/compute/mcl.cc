@@ -12,14 +12,35 @@ bool MCL::init(bool use_gpu) {
 
   compute_type = use_gpu ? CL_DEVICE_TYPE_GPU : CL_DEVICE_TYPE_CPU;
 
+  cl_platform_id platform;
+  clGetPlatformIDs(1, &platform, NULL);
+
+#ifdef __APPLE__
   CGLContextObj kCGLContext = CGLGetCurrentContext();
   CGLShareGroupObj kCGLShareGroup = CGLGetShareGroup(kCGLContext);
 
   cl_context_properties prop[] = {
-    CL_CONTEXT_PROPERTY_USE_CGL_SHAREGROUP_APPLE,
-    (cl_context_properties)kCGLShareGroup,
+    CL_CONTEXT_PROPERTY_USE_CGL_SHAREGROUP_APPLE, (cl_context_properties)kCGLShareGroup,
+    CL_CONTEXT_PLATFORM, (cl_context_properties)platform,
     0
   };
+#elif __WIN32
+  cl_context_properties prop[] = {
+    CL_GL_CONTEXT_KHR, (cl_context_properties)wglGetCurrentContext(),
+    CL_WGL_HDC_KHR, (cl_context_properties)wglGetCurrentContext(),
+    CL_CONTEXT_PLATFORM, (cl_context_properties)platform,
+    0
+  };
+#elif __linux__
+  cl_context_properties prop[] = {
+    CL_GL_CONTEXT_KHR, (cl_context_properties)glXGetCurrentContext(),
+    CL_GLX_DISPLAY_KHR, (cl_context_properties)glXGetCurrentDisplay(),
+    CL_CONTEXT_PLATFORM, (cl_context_properties)(platforms[0])(),
+    0
+  };
+#else
+  Log::e("No support for this platform, sorry!");
+#endif
 
   compute_context = clCreateContext(prop, 0, 0, clLogMessagesToStdoutAPPLE, 0, 0);
   if (!compute_context) {

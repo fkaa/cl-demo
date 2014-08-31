@@ -1,11 +1,17 @@
 #ifndef MCL_H
 #define MCL_H
 
+#ifdef __APPLE__
 #include <OpenCL/opencl.h>
-//#include <OpenCL/cl_gl.h>
-//#include <OpenCL/cl_gl_ext.h>
-
+#include <OpenCL/cl_gl.h>
 #include <OpenGL/CGLCurrent.h>
+#elif __WIN32
+#include <windows.h>
+#include <GL/GL.h>
+#include <CL/opencl.h>
+#elif __linux__
+#include <GL/glx.h>
+#endif
 
 #include "log.h"
 
