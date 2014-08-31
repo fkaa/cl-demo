@@ -6,6 +6,7 @@
 #include <map>
 #include <string>
 #include <iostream>
+#include <memory>
 
 #include "log.h"
 

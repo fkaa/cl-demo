@@ -1,15 +1,15 @@
 #ifndef MCL_H
 #define MCL_H
 
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(MACOSX)
 #include <OpenCL/opencl.h>
 #include <OpenCL/cl_gl.h>
 #include <OpenGL/CGLCurrent.h>
-#elif __WIN32
+#elif defined(WIN32)
 #include <windows.h>
 #include <GL/GL.h>
 #include <CL/opencl.h>
-#elif __linux__
+#elif defined(__linux__)
 #include <GL/glx.h>
 #endif
 

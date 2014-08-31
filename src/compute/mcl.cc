@@ -15,7 +15,7 @@ bool MCL::init(bool use_gpu) {
   cl_platform_id platform;
   clGetPlatformIDs(1, &platform, NULL);
 
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(MACOSX)
   CGLContextObj kCGLContext = CGLGetCurrentContext();
   CGLShareGroupObj kCGLShareGroup = CGLGetShareGroup(kCGLContext);
 
@@ -24,14 +24,14 @@ bool MCL::init(bool use_gpu) {
     CL_CONTEXT_PLATFORM, (cl_context_properties)platform,
     0
   };
-#elif __WIN32
+#elif defined(WIN32)
   cl_context_properties prop[] = {
     CL_GL_CONTEXT_KHR, (cl_context_properties)wglGetCurrentContext(),
     CL_WGL_HDC_KHR, (cl_context_properties)wglGetCurrentContext(),
     CL_CONTEXT_PLATFORM, (cl_context_properties)platform,
     0
   };
-#elif __linux__
+#elif defined(__linux__)
   cl_context_properties prop[] = {
     CL_GL_CONTEXT_KHR, (cl_context_properties)glXGetCurrentContext(),
     CL_GLX_DISPLAY_KHR, (cl_context_properties)glXGetCurrentDisplay(),
@@ -42,7 +42,12 @@ bool MCL::init(bool use_gpu) {
   Log::e("No support for this platform, sorry!");
 #endif
 
+#if defined(__APPLE__) || defined(MACOSX)
   compute_context = clCreateContext(prop, 0, 0, clLogMessagesToStdoutAPPLE, 0, 0);
+#else
+  compute_context = clCreateContext(prop, 0, 0, nullptr, 0, 0);
+#endif
+
   if (!compute_context) {
     return false;
   }

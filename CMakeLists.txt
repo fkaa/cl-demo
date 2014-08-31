@@ -8,9 +8,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-format-security -std=c++11")
 set(PROJECT_NAME "gyarte")
 
 # OpenCL
-FIND_LIBRARY(OPENCL_LIBRARY OpenCL)
-MARK_AS_ADVANCED(OPENCL_LIBRARY)
-SET(EXTRA_LIBS ${OPENCL_LIBRARY})
+find_package(OpenCL REQUIRED)
+include_directories(${OPENCL_INCLUDE_DIR})
 
 # OpenGL
 find_package(OpenGL REQUIRED)
@@ -37,4 +36,4 @@ aux_source_directory("${CMAKE_CURRENT_SOURCE_DIR}/src/graphics" SRC_LIST)
 aux_source_directory("${CMAKE_CURRENT_SOURCE_DIR}/src/compute" SRC_LIST)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
-target_link_libraries(${PROJECT_NAME} ${EXTRA_LIBS} ${OPENGL_LIBRARIES} GLEW glfw3)
+target_link_libraries(${PROJECT_NAME} ${OPENCL_LIBRARIES} ${OPENGL_LIBRARIES} GLEW glfw3)

@@ -84,8 +84,6 @@ int main(int argc, const char *argv[]) {
 
   double current_time = glfwGetTime();
   double accumulator = 0.;
-
-  //  Log::log("foo, %s\n", "bar");
   
   while (!glfwWindowShouldClose(wnd)) {
     const double new_time = glfwGetTime();

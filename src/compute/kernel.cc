@@ -46,26 +46,15 @@ Kernel::~Kernel() {
   clReleaseProgram(program);
 }
 
-void Kernel::set_arg(int idx, size_t size, void* arg) {
+void Kernel::set_arg(uint32_t idx, size_t size, void* arg) {
   if (clSetKernelArg(kernel, idx, size, arg)) {
     Log::w("Failed to set kernel arg: [idx=%i,size=%i,obj=%ul]", idx, size, arg);
   }
 }
 
-void Kernel::exec(uint group_count, uint elements) {
-  size_t local[2];
+void Kernel::exec(uint32_t group_count, uint32_t elements) {
   size_t global[1];
-    // ((a % b) != 0) ? (a / b + 1) : (a / b);
-  uint active = fmax(1, group_limit / group_count);
-  uint queued = group_limit / active;
-
-  local[0] = active;
-  local[1] = queued;
-
-  uint split = ceilf(sqrtf(elements));
-
-  global[0] = elements;//((split % active) != 0 ? split / active + 1 : split / active) * active;
-  //global[1] = elements;//((split % queued) != 0 ? split / queued + 1 : split / queued) * queued;
+  global[0] = elements;
 
   if (clEnqueueNDRangeKernel(MCL::device_queue(), kernel, 1, nullptr, global, nullptr, 0, nullptr, nullptr)) {
     Log::e("Failed to execute kernel: [max=%i,size=%i]", group_limit, group_count);
