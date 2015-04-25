@@ -1,4 +1,4 @@
-## Gymnasiearbete år 2014/2015
+## OpenCL particle demo
 
 Particles being updated on the GPU using OpenCL.
 
